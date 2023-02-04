@@ -1,20 +1,22 @@
 //
-//  MenuCell.swift
+//  GeneralCell.swift
 //  Setting_Clone_App
 //
-//  Created by 이치훈 on 2023/02/04.
+//  Created by 이치훈 on 2023/02/05.
 //
 
 import UIKit
 
-class MenuCell: UITableViewCell {
+class GeneralCell: UITableViewCell {
 
-    @IBOutlet weak var leftImageView: UIImageView!
+    @IBOutlet weak var leftTitle: UILabel!
     
-    @IBOutlet weak var midTitle: UILabel!
-    
-    @IBOutlet weak var rightImageView: UIImageView!
-    
+    @IBOutlet weak var rightImage: UIImageView! {
+        didSet{
+            rightImage.image = UIImage(systemName: "chevron.right")
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

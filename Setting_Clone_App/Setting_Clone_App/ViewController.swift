@@ -24,6 +24,17 @@ class ViewController: UIViewController {
         SettingVO(leftImageName: "hand.raised.fill", menuTitle: "Privacy", subTitle: nil, rightImageName: "chevron.right")]
         )
         
+        settingModel.append(
+        [SettingVO(leftImageName: "key", menuTitle: "Passwords", subTitle: nil, rightImageName: "chevron.right")]
+        )
+        
+        settingModel.append(
+        [SettingVO(leftImageName: "safari", menuTitle: "Safari", subTitle: nil, rightImageName: "chevron.right"),
+         SettingVO(leftImageName: "newspaper", menuTitle: "News", subTitle: nil, rightImageName: "chevron.right"),
+         SettingVO(leftImageName: "map", menuTitle: "Maps", subTitle: nil, rightImageName: "chevron.right"),
+         SettingVO(leftImageName: "multiply.square", menuTitle: "Shortcuts", subTitle: nil, rightImageName: "chevron.right"),]
+        )
+        
     }
     
     override func viewDidLoad() {

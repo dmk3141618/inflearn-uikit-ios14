@@ -15,6 +15,7 @@ class GeneralCell: UITableViewCell {
         didSet{
             rightImage.image = UIImage(systemName: "chevron.right")
         }
+        //rightImage 시작점
     }
 
     override func awakeFromNib() {

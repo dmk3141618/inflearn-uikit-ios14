@@ -24,6 +24,7 @@ class GeneralViewController: UIViewController {
         GeneralVO(leftTitle: "Language & Region"),
         GeneralVO(leftTitle: "Dictionary")]
         )
+         
         generalmodel.append([GeneralVO(leftTitle: "Reset")])
     }
     
@@ -36,13 +37,14 @@ class GeneralViewController: UIViewController {
         
         generalTableView.register(UINib(nibName: "GeneralCell", bundle: nil), forCellReuseIdentifier: "GeneralCell")
      
-        //self.title = "General"
+        self.title = "General"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.view.backgroundColor = .systemGroupedBackground
         
         self.makeData()
     }
+ 
     
-
 }
 //MARK: - UITableViewDataSource
 extension GeneralViewController: UITableViewDataSource{

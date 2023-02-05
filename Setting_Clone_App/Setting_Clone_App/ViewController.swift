@@ -45,6 +45,12 @@ class ViewController: UIViewController {
         
         self.makeData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
 
 }
@@ -93,9 +99,12 @@ extension ViewController: UITableViewDataSource{
 }
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         if indexPath.section == 0{
-            guard let userinfo = storyboard?.instantiateViewController(withIdentifier: "userinfo") else {return}
-            self.present(userinfo, animated: true)
+            let myID = MyIDViewController(nibName: "MyIDViewController", bundle: nil)
+            self.present(myID, animated: true)
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
             let generalVC = UIStoryboard(name: "GeneralViewController", bundle: nil).instantiateViewController(withIdentifier: "GeneralVC")

@@ -22,8 +22,9 @@
                                     <constraint firstAttribute="height" constant="50" id="1vN-ZD-ZaT"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="x"/>
+                                    <segment title="y"/>
+                                    <segment title="xy"/>
                                 </segments>
                                 <connections>
                                     <action selector="selectPanType:" destination="BYZ-38-t0r" eventType="valueChanged" id="aRO-6v-fJn"/>
@@ -38,6 +39,9 @@
                             <constraint firstItem="O4Y-KS-avF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zZh-xG-mxO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="xySegument" destination="O4Y-KS-avF" id="NED-rE-CPE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

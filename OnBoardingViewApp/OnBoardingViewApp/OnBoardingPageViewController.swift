@@ -17,7 +17,11 @@ class OnBoardingPageViewController: UIPageViewController {
     
     let startIndex: Int = 0
     
-    let currentIndex = 0
+    var currentIndex = 0{
+        didSet{
+            self.pageControl.currentPage = currentIndex
+        }
+    }
     
     func makePageVC(){
         let itemVC1 = OnBoardingItemViewController(nibName: "OnBoardingItemViewController", bundle: nil)
@@ -40,7 +44,7 @@ class OnBoardingPageViewController: UIPageViewController {
         pages.append(itemVC3)
         
         setViewControllers([itemVC1], direction: .forward, animated: true)
-        //UIPageViewController에 현재 화면 세팅
+        //UIPageViewController에 현재 화면 세팅, pageControl 화면전환 logic에 사용됨
         
         self.dataSource = self
         self.delegate = self
@@ -57,6 +61,9 @@ class OnBoardingPageViewController: UIPageViewController {
         
         pageControl.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55).isActive = true
         pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        
+        //pageControl.isUserInteractionEnabled = false
+        pageControl.addTarget(self, action: #selector(pageControlTapped), for: .valueChanged)
         
     }
     
@@ -84,6 +91,18 @@ class OnBoardingPageViewController: UIPageViewController {
         NSLog("did calledhideButton at makeButton")
     }
     
+    @objc func pageControlTapped(sender: UIPageControl){
+        if sender.currentPage > currentIndex{
+            self.setViewControllers([pages[sender.currentPage]], direction: .forward, animated: true)
+        }else{
+            self.setViewControllers([pages[sender.currentPage]], direction: .reverse, animated: true)
+        }
+        
+        self.currentIndex = sender.currentPage
+        
+        self.buttonPresentationStyle()
+    }
+    
     @objc func dismissPageVC(){
         self.dismiss(animated: true)
     }
@@ -107,6 +126,9 @@ extension OnBoardingPageViewController: UIPageViewControllerDataSource{
         guard let currentIndex = pages.firstIndex(of: viewController) else {
             return nil
         }
+        
+        self.currentIndex = currentIndex
+        
         if currentIndex == 0 {
             return pages.last
         }else{
@@ -120,6 +142,9 @@ extension OnBoardingPageViewController: UIPageViewControllerDataSource{
         guard let currentIndex = pages.firstIndex(of: viewController) else {
             return nil
         }
+        
+        self.currentIndex = currentIndex
+        
         if currentIndex == (pages.count - 1) {
             return pages.first
         }else{
@@ -137,6 +162,12 @@ extension OnBoardingPageViewController: UIPageViewControllerDelegate{
         
         guard let currentIndex = pages.firstIndex(of: currentVC) else {return}
         
+        self.currentIndex = currentIndex
+        
+        buttonPresentationStyle()
+    }
+    
+    func buttonPresentationStyle(){
         if currentIndex == pages.count - 1 {
             self.showButton()
             NSLog("did called showButton at DelegateLogic")

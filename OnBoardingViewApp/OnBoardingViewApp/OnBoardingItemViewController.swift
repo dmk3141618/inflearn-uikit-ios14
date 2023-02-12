@@ -12,12 +12,12 @@ class OnBoardingItemViewController: UIViewController {
     @IBOutlet private weak var topImage: UIImageView!
     @IBOutlet private weak var mainTitleLabel: UILabel!{
         didSet{
-            mainTitleLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            mainTitleLabel.font = .systemFont(ofSize: 20, weight: .medium)
         }
     }
     @IBOutlet private weak var descriptionLabel: UILabel!{
         didSet{
-            descriptionLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
+            descriptionLabel.font = .systemFont(ofSize: 14, weight: .light)
         }
     }
     

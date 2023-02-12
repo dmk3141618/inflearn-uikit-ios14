@@ -11,6 +11,14 @@ class OnBoardingPageViewController: UIPageViewController {
 
     var pages = [UIViewController]()
      
+    var bottomButtonMargin: NSLayoutConstraint?
+    
+    var pageControl = UIPageControl()
+    
+    let startIndex: Int = 0
+    
+    let currentIndex = 0
+    
     func makePageVC(){
         let itemVC1 = OnBoardingItemViewController(nibName: "OnBoardingItemViewController", bundle: nil)
         itemVC1.topImagePara = UIImage(named: "Onboarding1")
@@ -35,15 +43,22 @@ class OnBoardingPageViewController: UIPageViewController {
         //UIPageViewController에 현재 화면 세팅
         
         self.dataSource = self
+        self.delegate = self
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func makePageControl(){
+        self.view.addSubview(pageControl)
         
-        self.makePageVC()
-        self.makeBottomButton()
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.currentPageIndicatorTintColor = .darkGray
+        pageControl.pageIndicatorTintColor = .lightGray
+        pageControl.numberOfPages = pages.count
+        pageControl.currentPage = startIndex
+        
+        pageControl.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55).isActive = true
+        pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        
     }
-    
     
     func makeBottomButton(){
         let button = UIButton()
@@ -59,13 +74,29 @@ class OnBoardingPageViewController: UIPageViewController {
         button.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
         button.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        
+        bottomButtonMargin = button.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        bottomButtonMargin?.isActive = true //버튼의 속성값을 변경하기위해 bottomButtonMargin에 값을 대입함
+        //bottomButton AutoLayout 속성 설정
+        
+        
+        self.hideButton()
+        NSLog("did calledhideButton at makeButton")
     }
-
+    
     @objc func dismissPageVC(){
         self.dismiss(animated: true)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.makePageVC()
+        self.makeBottomButton()
+        self.makePageControl()
+    }
 
+    
 
 }
 //MARK: - UIPageViewControllerDataSource
@@ -81,6 +112,7 @@ extension OnBoardingPageViewController: UIPageViewControllerDataSource{
         }else{
             return pages[currentIndex - 1]
         }
+    
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -100,14 +132,30 @@ extension OnBoardingPageViewController: UIPageViewControllerDataSource{
 
 extension OnBoardingPageViewController: UIPageViewControllerDelegate{
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        NSLog("UIPageViewControllerDelegate Logic started")
         guard let currentVC = pageViewController.viewControllers?.first else {return}
         
         guard let currentIndex = pages.firstIndex(of: currentVC) else {return}
         
         if currentIndex == pages.count - 1 {
-            //show
+            self.showButton()
+            NSLog("did called showButton at DelegateLogic")
         }else{
-            //hide
+            self.hideButton()
+            NSLog("did called hideButton at DelegateLogic")
         }
+        
+        UIView.animate(withDuration: 0.25){
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func showButton(){
+        bottomButtonMargin?.constant = 0
+        NSLog("call showButton")
+    }
+    
+    func hideButton(){
+        bottomButtonMargin?.constant = 100
     }
 }

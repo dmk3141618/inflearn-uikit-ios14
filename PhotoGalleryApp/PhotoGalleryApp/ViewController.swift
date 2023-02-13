@@ -87,7 +87,7 @@ class ViewController: UIViewController {
     }
 
     @objc func refresh(){
-        
+        self.photoCollectionView.reloadData()
     }
 }
 //MARK: - UICollectionViewDataSource
@@ -117,6 +117,7 @@ extension ViewController: PHPickerViewControllerDelegate{
         let identifier = results.map{ $0.assetIdentifier ?? "" }
         self.fetchResults = PHAsset.fetchAssets(withLocalIdentifiers: identifier, options: nil)
             
+        self.photoCollectionView.reloadData()
         
         self.dismiss(animated: false)
     }

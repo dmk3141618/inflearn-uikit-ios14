@@ -10,7 +10,11 @@ import PhotosUI
 
 class PhotoCell: UICollectionViewCell{
     
-    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var photoImageView: UIImageView!{
+        didSet{
+            photoImageView.contentMode = .scaleAspectFill
+        }
+    }
     
     func loadImage(asset: PHAsset){
         let imageManager = PHImageManager()
@@ -18,7 +22,12 @@ class PhotoCell: UICollectionViewCell{
         let scale = UIScreen.main.scale
         let imageSize = CGSize(width: 150 * scale, height: 150 * scale)
         
-        imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: .aspectFill, options: nil) { image, info in
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        
+        self.photoImageView.image = nil
+        
+        imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: .aspectFill, options: options) { image, info in
             //저화질 이미지, 고화질 이미지 하나씩 받아옴
             
             self.photoImageView.image = image

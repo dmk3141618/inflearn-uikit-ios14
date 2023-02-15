@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class ViewController: UIViewController {
 
@@ -23,6 +24,30 @@ class ViewController: UIViewController {
         
         self.requestMovieAPI()
     }
+    
+    func loadImage(urlString: String, completion: @escaping (UIImage?) -> Void){
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        
+        if let hasURL = URL(string: urlString){
+            var request = URLRequest(url: hasURL)
+            request.httpMethod = "GET"
+            
+            let task = session.dataTask(with: request) { data, response, error in
+                print( (response as! HTTPURLResponse).description )
+                
+                if let hasData = data {
+                    completion(UIImage(data: hasData))
+                    return
+                }
+            }
+            task.resume()
+            session.finishTasksAndInvalidate()
+        }
+        
+        completion(nil)
+    }
+    
 
     //network
     func requestMovieAPI(){
@@ -36,9 +61,9 @@ class ViewController: UIViewController {
         components?.queryItems = [term, media]
         
         guard let url = components?.url else {return}
-        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        //api 요청 메서드
         
         let task = session.dataTask(with: request) { data, response, error in
             print( (response as! HTTPURLResponse).statusCode )
@@ -68,21 +93,54 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         return self.movieVO?.results.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = UIStoryboard(name: "DetailViewController", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        
+        detailVC.movieResult = self.movieVO?.results[indexPath.row]
+        
+        self.present(detailVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
         cell.titleLabel.text = self.movieVO?.results[indexPath.row].trackName
-        cell.descriptionLabel.text = self.movieVO?.results[indexPath.row].shortDescription ?? "long description"
+        cell.descriptionLabel.text = self.movieVO?.results[indexPath.row].shortDescription ??
+        self.movieVO?.results[indexPath.row].longDescription
+        //"long description"
         
         let currency = self.movieVO?.results[indexPath.row].currency ?? ""
         let price = self.movieVO?.results[indexPath.row].trackPrice.description ?? ""
         
-        cell.priceLabel.text = currency + price
+        cell.priceLabel.text = currency + " " + price
+        
+        if let hasURL = self.movieVO?.results[indexPath.row].image{
+            self.loadImage(urlString: hasURL){ data in
+                DispatchQueue.main.async {
+                    cell.movieImageView.image = data
+                }
+                
+            }
+        }
+        
+        if let dateString = self.movieVO?.results[indexPath.row].releaseDate{
+            let formatter = ISO8601DateFormatter()
+            if let isoDate = formatter.date(from: dateString){
+                
+                let myFormatter = DateFormatter()
+                myFormatter.dateFormat = "yyyy년 MM월 dd일"
+                cell.dateLabel.text = myFormatter.string(from: isoDate)
+            }
+        }
         
         return cell
     }
     
-    
+
 }
 //MARK: - UISearchBarDelegate
 extension ViewController: UISearchBarDelegate{

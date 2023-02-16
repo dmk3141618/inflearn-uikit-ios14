@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class DetailViewController: UIViewController {
 
@@ -28,6 +29,25 @@ class DetailViewController: UIViewController {
 
         titleLabel.text = movieResult?.trackName
         descriptionLabel.text = movieResult?.longDescription
+        
+        if let hasURL = movieResult?.previewUrl{
+            self.makePlayer(urlString: hasURL)
+        }
+    }
+    
+    func makePlayer(urlString: String) {
+        
+        if let hasUrl = URL(string: urlString){
+            let player = AVPlayer(url: hasUrl)
+            let playerLayer = AVPlayerLayer(player: player)
+            
+            movieContainer.layer.addSublayer(playerLayer)
+            
+            playerLayer.frame = movieContainer.bounds
+            
+            player.play()
+        }
+        
     }
     
 

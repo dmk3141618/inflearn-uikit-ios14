@@ -25,6 +25,7 @@ struct Result: Codable {
     let trackPrice: Double
     let currency: String
     let releaseDate: String
+    let previewUrl: String
     
     enum CodingKeys: String, CodingKey{
         case image = "artworkUrl100"
@@ -35,6 +36,7 @@ struct Result: Codable {
         case trackPrice
         case currency
         case releaseDate
+        case previewUrl
     }
     
 }

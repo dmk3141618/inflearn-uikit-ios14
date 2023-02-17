@@ -30,6 +30,12 @@ class DetailViewController: UIViewController {
         titleLabel.text = movieResult?.trackName
         descriptionLabel.text = movieResult?.longDescription
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         if let hasURL = movieResult?.previewUrl{
             self.makePlayer(urlString: hasURL)
         }

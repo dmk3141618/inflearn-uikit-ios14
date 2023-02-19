@@ -11,63 +11,22 @@
         <!--Detail View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="DetailViewController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="Y6W-OH-hqX" customClass="DetailViewController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lud-an-Wwh">
-                                <rect key="frame" x="0.0" y="79" width="393" height="200"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="043-fe-OZh"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krc-kN-E6C">
-                                <rect key="frame" x="20" y="299" width="353" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7q-bw-aUF">
-                                <rect key="frame" x="20" y="340" width="353" height="20.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="B7q-bw-aUF" firstAttribute="top" secondItem="krc-kN-E6C" secondAttribute="bottom" constant="20" id="MPs-Hd-JXw"/>
-                            <constraint firstItem="krc-kN-E6C" firstAttribute="top" secondItem="Lud-an-Wwh" secondAttribute="bottom" constant="20" id="boK-L7-yLf"/>
-                            <constraint firstItem="Lud-an-Wwh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="cgP-iQ-yXl"/>
-                            <constraint firstItem="Lud-an-Wwh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="m0L-Gt-9oI"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Lud-an-Wwh" secondAttribute="trailing" id="oZe-XJ-EgP"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="krc-kN-E6C" secondAttribute="trailing" constant="20" id="p81-nB-hO8"/>
-                            <constraint firstItem="krc-kN-E6C" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="qY4-zO-dTJ"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="B7q-bw-aUF" secondAttribute="trailing" constant="20" id="vT6-zM-EBB"/>
-                            <constraint firstItem="B7q-bw-aUF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="wW6-p4-o2a"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="B7q-bw-aUF" secondAttribute="bottom" constant="20" id="xdw-5P-N9M"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="descriptionLabel" destination="B7q-bw-aUF" id="yMK-Gv-K3M"/>
-                        <outlet property="movieContainer" destination="krc-kN-E6C" id="LCN-Wc-akA"/>
-                        <outlet property="titleLabel" destination="krc-kN-E6C" id="ExN-Px-hys"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131" y="-27"/>
+            <point key="canvasLocation" x="91" y="-34"/>
         </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

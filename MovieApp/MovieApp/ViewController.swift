@@ -99,6 +99,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = UIStoryboard(name: "DetailViewController", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         detailVC.movieResult = self.movieVO?.results[indexPath.row]
         
         self.present(detailVC, animated: true)

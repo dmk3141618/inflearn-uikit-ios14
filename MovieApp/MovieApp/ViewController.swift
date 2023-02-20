@@ -8,15 +8,18 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    var movieVO: MovieVO?
     
+    //MARK: - Properties
+    var movieVO: MovieVO?
+    var term = ""
+    var movieAPI = API()
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var movieTableView: UITableView!
     
+    //MARK: - LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-         
+        
         self.searchBar.delegate = self
         self.movieTableView.delegate = self
         self.movieTableView.dataSource = self
@@ -24,67 +27,40 @@ class ViewController: UIViewController {
         self.requestMovieAPI()
     }
     
+    //MARK: - GetAPI
     func loadImage(urlString: String, completion: @escaping (UIImage?) -> Void){
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        
-        if let hasURL = URL(string: urlString){
-            var request = URLRequest(url: hasURL)
-            request.httpMethod = "GET"
-            
-            let task = session.dataTask(with: request) { data, response, error in
-                print( (response as! HTTPURLResponse).description )
-                
-                if let hasData = data {
-                    completion(UIImage(data: hasData))
-                    return
-                }
+        movieAPI.request(type: .justURL(urlString: urlString)) { data, response, error in
+            guard let hasData = data else {
+                completion(nil)
+                return
             }
-            task.resume()
-            session.finishTasksAndInvalidate()
+            completion(UIImage(data: hasData))
         }
-        
-        completion(nil)
     }
     
-
-    //network
-    func requestMovieAPI(){
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
+    
+    func requestMovieAPI() {
         
-        var components = URLComponents(string: "https://itunes.apple.com/search")
-        
-        let term = URLQueryItem(name: "term", value: "marvel")
+        let term = URLQueryItem(name: "term", value: term)
         let media = URLQueryItem(name: "media", value: "movie")
-        components?.queryItems = [term, media]
         
-        guard let url = components?.url else {return}
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        //api 요청 메서드
-        
-        let task = session.dataTask(with: request) { data, response, error in
-            print( (response as! HTTPURLResponse).statusCode )
-            
-            if let hasData = data{
-                do{
-                    self.movieVO = try JSONDecoder().decode(MovieVO.self, from: hasData)
-                    print(self.movieVO ?? "no data")
-                    
-                    DispatchQueue.main.async {
-                        self.movieTableView.reloadData()
-                    }
-                }
-                catch{
-                    print(error)
+        movieAPI.request(type: .searchMovie(querys: [term,media])) { data, response, error in
+            guard let hasData = data else {return}
+            do{
+                self.movieVO = try JSONDecoder().decode(MovieVO.self, from: hasData)
+                print(self.movieVO ?? "no data")
+                
+                DispatchQueue.main.async {
+                    self.movieTableView.reloadData()
                 }
             }
+            catch{
+                print(error)
+            }
         }
-        task.resume()
-        session.finishTasksAndInvalidate()
+        
     }
-
+    
 }
 //MARK: - UITableViewDataSource
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
@@ -119,6 +95,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.priceLabel.text = currency + " " + price
         
+        //use loadImage
         if let hasURL = self.movieVO?.results[indexPath.row].image{
             self.loadImage(urlString: hasURL){ data in
                 DispatchQueue.main.async {
@@ -146,7 +123,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
 //MARK: - UISearchBarDelegate
 extension ViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-
+        self.term = searchBar.text ?? ""
+        self.requestMovieAPI()
+        
+        self.view.endEditing(true)
     }
 }

@@ -13,7 +13,6 @@ class TodoCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var prioirtyView: UIView!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

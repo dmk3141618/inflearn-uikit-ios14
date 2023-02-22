@@ -11,7 +11,7 @@ class TodoCell: UITableViewCell {
 
     @IBOutlet weak var topTitleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var prioirtyView: UIView!
+    @IBOutlet weak var priorityView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

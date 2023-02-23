@@ -30,13 +30,13 @@ extension PriorityLevel {
 
 class ViewController: UIViewController {
 
-    //MARK: Properties
+    //MARK: -Properties
     
     @IBOutlet weak var todoTableView: UITableView!
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     var todoList = [TodoList]()
     
-    //MARK: LifeCycle
+    //MARK: -LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         self.todoTableView.reloadData()
     }
     
-    //MARK: CoreData logic
+    //MARK: -CoreData logic
     
     func fetchData() {
         let fetchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
@@ -62,7 +62,6 @@ class ViewController: UIViewController {
         }catch{
             print(error)
         }
-        
         
     }
     
@@ -97,6 +96,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = TodoDetailViewController(nibName: "TodoDetailViewController", bundle: nil)
+        detailVC.delegate = self
+        detailVC.selectedTodoList = todoList[indexPath.row]
+        self.present(detailVC, animated: true)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -107,6 +111,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.topTitleLabel.text = todoList[indexPath.row].title
         
         //set Date
+        cell.dateLabel.font = UIFont.boldSystemFont(ofSize: 11)
         if let hasDate = todoList[indexPath.row].date {
             let formatter = DateFormatter()
             formatter.dateFormat = "MM-dd hh:mm:ss"

@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodoDetailViewController" customModule="TodoList" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="wnd-Ka-8D2" id="v9s-oT-3J5"/>
+                <outlet property="deleteButton" destination="wnd-Ka-8D2" id="x5W-dS-SMm"/>
                 <outlet property="highButton" destination="kln-3l-Ahm" id="ITU-Ak-IOj"/>
                 <outlet property="lowButton" destination="GKQ-s5-DOc" id="wVS-Kl-cOp"/>
                 <outlet property="normalButton" destination="1t7-os-2jv" id="GDg-86-EQw"/>
@@ -122,7 +123,10 @@
                         <constraint firstAttribute="height" constant="40" id="FIj-X9-voq"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Delete"/>
+                    <connections>
+                        <action selector="deleteTodo:" destination="-1" eventType="touchUpInside" id="MYc-M1-ovf"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

@@ -14,11 +14,16 @@ enum RotateType {
 
 class RotateButton: UIButton {
     
+    //MARK: -Properties
+    
     var isUp = RotateType.down {
         didSet{
             self.changeDesign()
         }
     }
+    
+    var selectTypeCallback: ((RotateType) -> Void)?
+    //MARK: -Init
     
     init() {
         super.init(frame: .zero)
@@ -27,8 +32,12 @@ class RotateButton: UIButton {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        self.configure()
+        //fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: -ButtonOption
     
     private func configure() {
         self.addTarget(self, action: #selector(selectButton), for: .touchUpInside)
@@ -40,15 +49,21 @@ class RotateButton: UIButton {
         }else{
             isUp = .up
         }
+        
+        self.selectTypeCallback?(isUp)
     }
     
     private func changeDesign() {
-        if isUp == .down {
-            self.imageView?.transform = CGAffineTransform(rotationAngle: .pi)
-            self.backgroundColor = self.backgroundColor?.withAlphaComponent(0.3)
-        }else{
-            self.imageView?.transform = .identity
-            self.backgroundColor = self.backgroundColor?.withAlphaComponent(1)
+        
+        UIView.animate(withDuration: 0.25) {
+            if self.isUp == .up {
+                self.imageView?.transform = CGAffineTransform(rotationAngle: .pi)
+                self.backgroundColor = self.backgroundColor?.withAlphaComponent(0.3)
+            }else{
+                self.imageView?.transform = .identity
+                self.backgroundColor = self.backgroundColor?.withAlphaComponent(1)
+            }
+            
         }
     }
     

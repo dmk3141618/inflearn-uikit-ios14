@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         myButton.setImage(UIImage(systemName: "arrowtriangle.down"), for: .normal)
         myButton.layer.cornerRadius = 15
         
-        print(myButton.frame.height)
+        print(myButton.frame.size.height)
     }
     
     

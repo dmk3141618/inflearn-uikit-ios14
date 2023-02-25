@@ -21,13 +21,28 @@ class ViewController: UIViewController {
 //        var backImage = UIImage(systemName: "backward")
 //        backImage = backImage?.withRenderingMode(.alwaysOriginal)
         
-        let backImage = UIImage(systemName: "backward")?.withRenderingMode(.alwaysOriginal)
+        guard let backImage = UIImage(named: "img")?.withRenderingMode(.alwaysOriginal) else {return}
         
-        self.navigationController?.navigationBar.backIndicatorImage = backImage
+        let newImage = self.resizeImage(image: backImage, newWidth: 40, newHeight: 40)
+        
+        
+        self.navigationController?.navigationBar.backIndicatorImage = newImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        self.navigationController?.navigationBar.tintColor = .orange
+        //self.navigationController?.navigationBar.tintColor = .orange
         
         self.navigationItem.backButtonTitle = ""
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat, newHeight: CGFloat) -> UIImage? {
+        
+        let newImageRect = CGRect(x: 0, y: 0, width: newWidth, height: newHeight)
+        
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: newImageRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(.alwaysOriginal)
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     
     func setNaviTitleView() {

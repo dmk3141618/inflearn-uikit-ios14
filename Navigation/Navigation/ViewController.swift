@@ -37,16 +37,19 @@ class ViewController: UIViewController {
         rightItem2.imageInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10)
         */
         
+        let config = UIImage.SymbolConfiguration(pointSize: 40)
+        
         let btn1 = UIButton()
-        btn1.setImage(UIImage(systemName: "alarm.fill"), for: .normal)
+        btn1.setImage(UIImage(systemName: "alarm.fill", withConfiguration: config)?.withRenderingMode(.alwaysOriginal), for: .normal)
         btn1.addTarget(self, action: #selector(rightItemClick), for: .touchUpInside)
+        
         let btn2 = UIButton()
-        btn2.setImage(UIImage(systemName: "alarm"), for: .normal)
+        btn2.setImage(UIImage(systemName: "alarm", withConfiguration: config)?.withRenderingMode(.alwaysOriginal), for: .normal)
         btn2.addTarget(self, action: #selector(rightItemClick2), for: .touchUpInside)
         
         let stackView = UIStackView(arrangedSubviews: [btn1, btn2])
         stackView.axis = .horizontal
-        stackView.spacing = 20
+        stackView.spacing = 10
         stackView.distribution = .equalSpacing
         
         let customItem = UIBarButtonItem(customView: stackView)

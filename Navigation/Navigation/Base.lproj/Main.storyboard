@@ -35,10 +35,10 @@
             </objects>
             <point key="canvasLocation" x="1057.2519083969464" y="-27.464788732394368"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="6VW-51-CQ2">
             <objects>
-                <viewController id="tx1-nd-Oyo" sceneMemberID="viewController">
+                <viewController id="tx1-nd-Oyo" customClass="DetailViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fi8-Ft-0Wm">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -17,6 +17,7 @@
 		4B65BEDD29A91B70001ED01B /* NavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B65BEDC29A91B70001ED01B /* NavigationUITests.swift */; };
 		4B65BEDF29A91B70001ED01B /* NavigationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B65BEDE29A91B70001ED01B /* NavigationUITestsLaunchTests.swift */; };
 		4B65BEEC29A91E53001ED01B /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B65BEEB29A91E53001ED01B /* img.png */; };
+		4BC2DB5F29AB96520094FA11 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC2DB5E29AB96520094FA11 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		4B65BEDC29A91B70001ED01B /* NavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITests.swift; sourceTree = "<group>"; };
 		4B65BEDE29A91B70001ED01B /* NavigationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4B65BEEB29A91E53001ED01B /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
+		4BC2DB5E29AB96520094FA11 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				4B65BEBB29A91B6F001ED01B /* AppDelegate.swift */,
 				4B65BEBD29A91B6F001ED01B /* SceneDelegate.swift */,
 				4B65BEBF29A91B6F001ED01B /* ViewController.swift */,
+				4BC2DB5E29AB96520094FA11 /* DetailViewController.swift */,
 				4B65BEC129A91B6F001ED01B /* Main.storyboard */,
 				4B65BEC429A91B6F001ED01B /* Assets.xcassets */,
 				4B65BEC629A91B6F001ED01B /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 				4B65BEC029A91B6F001ED01B /* ViewController.swift in Sources */,
 				4B65BEBC29A91B6F001ED01B /* AppDelegate.swift in Sources */,
 				4B65BEBE29A91B6F001ED01B /* SceneDelegate.swift in Sources */,
+				4BC2DB5F29AB96520094FA11 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

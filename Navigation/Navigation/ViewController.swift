@@ -9,11 +9,66 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //MARK: -LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setNaviTitleView()
         self.makeBackButton()
+        self.makeRightAlarmButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.naviBackgroundDesign()
+    }
+    
+    //MARK: -Custom Navigation func
+    
+    func makeRightAlarmButton() {
+        /*
+        let image = UIImage(systemName: "alarm.fill")?.withRenderingMode(.alwaysOriginal)
+        let rightItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(rightItemClick))
+        
+        let image2 = UIImage(systemName: "alarm")?.withRenderingMode(.alwaysOriginal)
+        let rightItem2 = UIBarButtonItem(image: image2, style: .done, target: self, action: #selector(rightItemClick2))
+        rightItem2.imageInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10)
+        */
+        
+        let btn1 = UIButton()
+        btn1.setImage(UIImage(systemName: "alarm.fill"), for: .normal)
+        btn1.addTarget(self, action: #selector(rightItemClick), for: .touchUpInside)
+        let btn2 = UIButton()
+        btn2.setImage(UIImage(systemName: "alarm"), for: .normal)
+        btn2.addTarget(self, action: #selector(rightItemClick2), for: .touchUpInside)
+        
+        let stackView = UIStackView(arrangedSubviews: [btn1, btn2])
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        stackView.distribution = .equalSpacing
+        
+        let customItem = UIBarButtonItem(customView: stackView)
+        
+        self.navigationItem.rightBarButtonItem = customItem
+        //self.navigationItem.rightBarButtonItems = [rightItem, rightItem2]
+    }
+    
+    @objc func rightItemClick() {
+        print("right item click")
+    }
+    
+    @objc func rightItemClick2() {
+        print("right item click2")
+    }
+    
+    
+    func naviBackgroundDesign() {
+        self.navigationController?.navigationBar.backgroundColor = .orange
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        
+        self.statusBar?.backgroundColor = .orange
     }
     
     func makeBackButton() {
@@ -61,7 +116,7 @@ class ViewController: UIViewController {
         let btn = UIButton()
         btn.setTitle("custom button", for: .normal)
         btn.setTitleColor(.blue, for: .normal)
-        btn.backgroundColor = .orange
+        btn.backgroundColor = .green
         btn.widthAnchor.constraint(equalToConstant: 120).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 40).isActive = true
         btn.layer.cornerRadius = 21

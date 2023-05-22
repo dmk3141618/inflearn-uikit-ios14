@@ -25,6 +25,7 @@ class API {
     
     public func request(type: MovieAPIType, completion: @escaping NetworkCompletion ) {
         
+        
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         

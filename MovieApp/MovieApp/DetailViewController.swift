@@ -114,10 +114,14 @@ extension DetailViewController {
         movieContainer = UIView()
         movieContainer.backgroundColor = .green
         playButton = UIButton()
+        playButton.backgroundColor = .systemGray
+        playButton.layer.cornerRadius = 10
         playButton.setTitle("Play", for: .normal)
         playButton.setTitleColor(.systemBlue, for: .normal)
         playButton.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
         stopButton = UIButton()
+        stopButton.backgroundColor = .systemGray
+        stopButton.layer.cornerRadius = 10
         stopButton.setTitle("Stop", for: .normal)
         stopButton.setTitleColor(.systemBlue, for: .normal)
         stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
@@ -134,10 +138,17 @@ extension DetailViewController {
     
     @objc func playButtonAction(){
         self.playerTemp.play()
+        playButton.backgroundColor = .black
+        stopButton.backgroundColor = .systemGray
+        
+        Timer.scheduledTimer(withTimeInterval: 0.15, repeats: true) { [weak self] _ in
+            self!.playButton.backgroundColor = .systemGray
+        }
     }
     
     @objc func stopButtonAction(){
         self.playerTemp.pause()
+        stopButton.backgroundColor = .black
     }
     
     func addSubviews() {
@@ -182,7 +193,7 @@ extension DetailViewController {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: movieContainer.bottomAnchor, constant: 22),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 7),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -7)])
+            titleLabel.trailingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: -5)])
     }
     
     func setupDescriptionLabelConstraints() {
@@ -196,9 +207,9 @@ extension DetailViewController {
     func setupPlayButtonContraints() {
         NSLayoutConstraint.activate([
             playButton.topAnchor.constraint(equalTo: movieContainer.bottomAnchor, constant: 20),
-            playButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 200),
-            playButton.trailingAnchor.constraint(equalTo: stopButton.leadingAnchor, constant: 10),
-            playButton.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 5)])
+            playButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+            playButton.trailingAnchor.constraint(equalTo: stopButton.leadingAnchor, constant: -10),
+            playButton.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -20)])
     }
     
     func setupStopButtonContraints() {
@@ -206,7 +217,7 @@ extension DetailViewController {
             stopButton.topAnchor.constraint(equalTo: movieContainer.bottomAnchor, constant: 20),
             stopButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 10),
             stopButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            stopButton.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 5)])
+            stopButton.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -20)])
     }
     
 }

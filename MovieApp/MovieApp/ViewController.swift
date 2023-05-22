@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: - GetAPI
-    func loadImage(urlString: String, completion: @escaping (UIImage?) -> Void){
+    func loadImage(urlString: String, completion: @escaping (UIImage?) -> Void) {
         movieAPI.request(type: .justURL(urlString: urlString)) { data, response, error in
             guard let hasData = data else {
                 completion(nil)
@@ -44,14 +44,14 @@ class ViewController: UIViewController {
         let term = URLQueryItem(name: "term", value: term)
         let media = URLQueryItem(name: "media", value: "movie")
         
-        movieAPI.request(type: .searchMovie(querys: [term,media])) { data, response, error in
+        movieAPI.request(type: .searchMovie(querys: [term,media])) { [weak self] data, response, error in
             guard let hasData = data else {return}
             do{
-                self.movieVO = try JSONDecoder().decode(MovieVO.self, from: hasData)
-                print(self.movieVO ?? "no data")
+                self?.movieVO = try JSONDecoder().decode(MovieVO.self, from: hasData)
+                print(self?.movieVO ?? "no data")
                 
                 DispatchQueue.main.async {
-                    self.movieTableView.reloadData()
+                    self?.movieTableView.reloadData()
                 }
             }
             catch{
@@ -97,7 +97,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         
         //use loadImage
         if let hasURL = self.movieVO?.results[indexPath.row].image{
-            self.loadImage(urlString: hasURL){ data in
+            self.loadImage(urlString: hasURL) { data in
                 DispatchQueue.main.async {
                     cell.movieImageView.image = data
                 }
@@ -129,3 +129,19 @@ extension ViewController: UISearchBarDelegate{
         self.view.endEditing(true)
     }
 }
+
+class SampleClass {
+    var number: Int
+    
+    init(number: Int) {
+        self.number = number
+    }
+    
+    func example() {
+        number = 3
+    }
+    
+    
+}
+
+

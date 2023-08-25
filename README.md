@@ -1,5 +1,7 @@
 # inflearn UIKit - iOS14 실무 가이드 <iOS앱 진짜 개발자 되기> (Example)
 
+## MovieApp 에 코드로 UI 작성한 부분이 조금 있음. 참고.
+
 ## Propertie Datapassing 
 - MainViewController(From)
 ``` swift
